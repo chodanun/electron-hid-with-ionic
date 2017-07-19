@@ -23,7 +23,7 @@ export class MyApp {
       "customerName":"visitor noioie223",
       "isMobile" : "true",
       "public_key":"sdsdsds",
-      "mKey": "-Kp-dwlHTsCVDck9hRfRf"
+      "mKey": "",
     }
   }
   ticketId: string ;
@@ -46,15 +46,19 @@ export class MyApp {
   //   this.getData(barcode_reader);
   // }
 
-  postData(data){
+  postData(barcode_data){
+    this.body.parameters.mKey = barcode_data;
+    console.log(this.body)
+    
     this.rest.clearBasicAuthen();
     this.rest.setBasicAuthen(btoa("superadmin:ulan"));
     this.rest.post(this.url,this.body)
       .then( (data) => {
         console.log(data);
-        // console.log(data.ticketId);
+        console.log(data.ticketId);
         this.ticketId = data.ticketId;
       });
+      
     // this.rest.get("/rest/entrypoint/branches/35/queues/18/visits")
     //   .then( (data) => {
     //     console.log(data)
