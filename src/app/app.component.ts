@@ -16,7 +16,7 @@ import { RestService } from '../shared/rest.service'
 })
 export class MyApp {
   rootPage:any = HomePage;
-
+  url: string = "/rest/entrypoint/branches/35/entryPoints/2/visits/";
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private rest: RestService) {
     platform.ready().then(() => {
       statusBar.styleDefault();
