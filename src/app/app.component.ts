@@ -5,6 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 
+// HTTP
+import { RestService } from '../shared/rest.service'
+
 // BARCODE READER
 // declare var HID: any;
 
@@ -14,7 +17,7 @@ import { HomePage } from '../pages/home/home';
 export class MyApp {
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private rest: RestService) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -33,7 +36,12 @@ export class MyApp {
   // }
 
   postData(data){
-
+    this.rest.clearBasicAuthen();
+    this.rest.setBasicAuthen(btoa("superadmin:ulan"));
+    this.rest.get("/rest/entrypoint/branches/35/queues/18/visits")
+      .then( (data) => {
+        console.log(data)
+      });
   }
 
   // getData(br){
