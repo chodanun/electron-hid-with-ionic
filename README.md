@@ -24,3 +24,6 @@ $ ionic cordova run ios
 
 Substitute ios for android if not on a Mac.
 
+
+http://known.mattbeckett.me/2017/ionic-2-electron
+

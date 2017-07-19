@@ -33,8 +33,7 @@ export class MyApp {
     }
 
     init(){
-      // let x = new HID();
-      // console.log(x);
+     
       // let devices = HID.devices();
       // console.log(HID)
 
