@@ -77,7 +77,7 @@ export class MyApp {
   // }
 
   dev(){
-    
+    this.postData("-KpOuhweuWiM_1ti3K-Z");
   }
 }
 

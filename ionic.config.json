@@ -1,5 +1,11 @@
 {
   "name": "ionic-barcode",
   "app_id": "",
+  "proxies":[
+    {
+      "path": "/rest",
+      "proxyUrl": "http://192.168.1.92:8080/rest"
+    }
+  ],
   "type": "ionic-angular"
 }
