@@ -17,6 +17,17 @@ import { RestService } from '../shared/rest.service'
 export class MyApp {
   rootPage:any = HomePage;
   url: string = "/rest/entrypoint/branches/35/entryPoints/2/visits/";
+  body: any = {
+    "services" : [14],
+    "parameters" : {
+      "customerName":"visitor noioie223",
+      "isMobile" : "true",
+      "public_key":"sdsdsds",
+      "mKey": "-Kp-dwlHTsCVDck9hRfRf"
+    }
+  }
+  ticketId: string ;
+
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private rest: RestService) {
     platform.ready().then(() => {
       statusBar.styleDefault();
@@ -38,10 +49,16 @@ export class MyApp {
   postData(data){
     this.rest.clearBasicAuthen();
     this.rest.setBasicAuthen(btoa("superadmin:ulan"));
-    this.rest.get("/rest/entrypoint/branches/35/queues/18/visits")
+    this.rest.post(this.url,this.body)
       .then( (data) => {
-        console.log(data)
+        console.log(data);
+        // console.log(data.ticketId);
+        this.ticketId = data.ticketId;
       });
+    // this.rest.get("/rest/entrypoint/branches/35/queues/18/visits")
+    //   .then( (data) => {
+    //     console.log(data)
+    //   });
   }
 
   // getData(br){
