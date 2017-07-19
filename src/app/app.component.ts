@@ -5,13 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 
-// import * as HID  from 'node-hid';
-// import 'node-hid';
+// BARCODE READER
 // declare var HID: any;
-// import * as a from './test';
-// import 'node-hid';
-
-declare var HID: any;
 
 @Component({
   templateUrl: 'app.html'
@@ -22,8 +17,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+
       statusBar.styleDefault();
       splashScreen.hide();
       this.init();
@@ -33,13 +27,11 @@ export class MyApp {
     }
 
     init(){
-      let devices = HID.devices();
+      this.getData();
+    }
 
-      let device = devices.filter( device => {
-          return device.serialNumber == "17161B2BEE"
-        })[0];
-      console.log(device);
-
+    getData(){
+      let device = getDevice();
       let productId = device.productId;
       let vendorId = device.vendorId;
       let barcode_reader = new HID.HID(vendorId,productId);
@@ -51,14 +43,21 @@ export class MyApp {
         console.log(string_data);
         console.log(string_data.length);
       });
+    }
 
+    getDevice(){
+      let devices = HID.devices();
+      let device = devices.filter( device => {
+        return device.serialNumber == "17161B2BEE"
+      })[0];
+      console.log(device);
+      return device;
     }
 
     hexToString (data) {
       let string = '';
       let i ; // start byte -> 10
       let h ;
-
       let hex = data.toString('hex')
       for (i=10; i < hex.length; i += 2) {
         h = parseInt(hex.substr(i,2), 16);
