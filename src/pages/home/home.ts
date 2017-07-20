@@ -17,6 +17,7 @@ export class HomePage {
   test: any = "hello";
   // url: string = "/rest/entrypoint/branches/35/entryPoints/2/visits/";
   url: string = "http://192.168.1.92:8080/rest/entrypoint/branches/35/entryPoints/2/visits/";
+  proxyEventUrl: string= "http://192.168.1.201:8080/ciix-fusion/rest/proxy/events/";
   body: any = {
     "services" : [14],
     "parameters" : {
@@ -25,6 +26,11 @@ export class HomePage {
       "public_key":"sdsdsds",
       "mKey": "",
     }
+  }
+  proxyEventBody: any = {
+    eventName: "FLOWTOCOL.VISIT_CREATE",
+    status: "LISTENING_DATA",
+    mKey: "",
   }
   ticketId: string ;
 
@@ -43,25 +49,31 @@ export class HomePage {
   }
 
   postData(barcode_data){
-    this.test = "hello world"
     this.mKey = barcode_data;
-    console.log("mKey: ",this.mKey)
     this.body.parameters.mKey = this.mKey;
-    console.log(this.body)
     
-    this.rest.clearBasicAuthen();
+    this.postToR6(barcode_data);
+    this.postToProxy(barcode_data);
+      
+  }
+
+  postToProxy(barcode_data){
+    this.proxyEventBody.mKey = barcode_data;
+    // console.log(this.proxyEventBody);
+    this.rest.post(this.proxyEventUrl,this.proxyEventBody)
+      .then( (data) => {
+        console.log(data);
+      });
+  }
+
+  postToR6(barcode_data){
+    console.log(this.body)
     this.rest.setBasicAuthen(btoa("superadmin:ulan"));
     this.rest.post(this.url,this.body)
       .then( (data) => {
         console.log(data);
-        console.log(data.ticketId);
         this.ticketId = data.ticketId;
       });
-      
-    // this.rest.get("/rest/entrypoint/branches/35/queues/18/visits")
-    //   .then( (data) => {
-    //     console.log(data)
-    //   });
   }
 
   getData(br){
@@ -70,8 +82,8 @@ export class HomePage {
       // console.log(data.toString('hex'));
       let string_data = this.hexToString(data);
       console.log(string_data);
+      this.mKey = string_data ;
       this.postData(string_data);
-      // console.log(string_data.length);
     });
   }
 
