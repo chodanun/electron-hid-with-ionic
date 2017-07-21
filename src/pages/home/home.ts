@@ -23,7 +23,7 @@ export class HomePage {
   // url: string = "/rest/entrypoint/branches/35/entryPoints/2/visits/";
   url: string = "http://192.168.1.92:8080/rest/entrypoint/branches/35/entryPoints/2/visits/";
   proxyEventUrl: string= "http://192.168.1.201:8080/ciix-fusion/rest/proxy/events/";
-
+  stream_input: string = "";
   body: any = {
     "services" : [14],
     "parameters" : {
@@ -97,7 +97,6 @@ export class HomePage {
   getData(br){
     br.on("data", (data) => {
       console.log(data);
-      console.log(data.toString('hex'));
       let string_data = this.hexToString(data);
       console.log(string_data);
       this.postData(string_data);
@@ -119,11 +118,26 @@ export class HomePage {
   }
 
   hexToString (data) {
+    let startByte = 5 ;
+    let numberOfDataByte = data[1];
+    let endByte = startByte + numberOfDataByte;
+    let dataArr = data.slice(startByte,endByte);
+    let shiftOut = dataArr[dataArr.length-1] == 13
+    console.log(dataArr);
+    console.log(shiftOut);
+    if (shiftOut){
+      return this.translate(dataArr);
+    }
+    return "";
+
+    
+  }
+
+  translate(data){
     let string = '';
-    let i ; // start byte -> 10
     let h ;
     let hex = data.toString('hex')
-    for (i=10; i < hex.length; i += 2) {
+    for (let i = 0; i < hex.length; i += 2) {
       h = parseInt(hex.substr(i,2), 16);
       if (h == 13){ // carriage return number
         return string ;
@@ -132,7 +146,6 @@ export class HomePage {
     }
     return string;
   }
-
   dev(){
     this.postData('{"mKey":"-KpOuhweuWiM_1ti3K-Z","customerName":"Chodanun Srinil","isMobile":"true","other":"test"}');
   }
