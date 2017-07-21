@@ -23,7 +23,7 @@ export class HomePage {
   // url: string = "/rest/entrypoint/branches/35/entryPoints/2/visits/";
   url: string = "http://192.168.1.92:8080/rest/entrypoint/branches/35/entryPoints/2/visits/";
   proxyEventUrl: string= "http://192.168.1.201:8080/ciix-fusion/rest/proxy/events/";
-  stream_input: string = "";
+  stream_input: string = null;
   body: any = {
     "services" : [14],
     "parameters" : {
@@ -122,14 +122,24 @@ export class HomePage {
     let numberOfDataByte = data[1];
     let endByte = startByte + numberOfDataByte;
     let dataArr = data.slice(startByte,endByte);
-    let shiftOut = dataArr[dataArr.length-1] == 13
+    let isShiftOut = dataArr[dataArr.length-1] != 13
     console.log(dataArr);
-    console.log(shiftOut);
-    if (shiftOut){
-      return this.translate(dataArr);
-    }
-    return "";
+    console.log(isShiftOut);
+    if (isShiftOut){
+      this.stream_input += this.translate(dataArr);
+    }else{
+      // return this.translate(dataArr);
 
+      if (this.stream_input==null){
+        return this.translate(dataArr);
+      }else{
+        this.stream_input+= this.translate(dataArr);
+        let data = this.stream_input ;
+        this.stream_input = null;
+        return data;
+      }
+      
+    }
     
   }
 
