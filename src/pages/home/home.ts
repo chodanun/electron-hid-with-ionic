@@ -22,8 +22,8 @@ export class HomePage {
   barcodeInputModel: InputModel;
   // url: string = "/rest/entrypoint/branches/35/entryPoints/2/visits/";
   url: string = "http://192.168.1.92:8080/rest/entrypoint/branches/35/entryPoints/2/visits/";
-  proxyEventUrl: string= "http://192.168.1.201:8080/ciix-fusion/rest/proxy/events/";
-  stream_input: string = null;
+  proxyEventUrl: string= "http://192.168.1.202:8080/ciix-fusion/rest/proxy/events/";
+  stream_input: string = "";
   body: any = {
     "services" : [14],
     "parameters" : {
@@ -96,10 +96,11 @@ export class HomePage {
 
   getData(br){
     br.on("data", (data) => {
-      console.log(data);
-      let string_data = this.hexToString(data);
-      console.log(string_data);
-      this.postData(string_data);
+      console.log("data binary: "+data);
+      this.hexToString(data).then ( string_data => {
+        console.log("string data: "+string_data);
+        this.postData(string_data);
+      })
     });
   }
 
@@ -118,28 +119,31 @@ export class HomePage {
   }
 
   hexToString (data) {
-    let startByte = 5 ;
-    let numberOfDataByte = data[1];
-    let endByte = startByte + numberOfDataByte;
-    let dataArr = data.slice(startByte,endByte);
-    let isShiftOut = dataArr[dataArr.length-1] != 13
-    console.log(dataArr);
-    console.log(isShiftOut);
-    if (isShiftOut){
-      this.stream_input += this.translate(dataArr);
-    }else{
-      // return this.translate(dataArr);
-
-      if (this.stream_input==null){
-        return this.translate(dataArr);
+    return new Promise ( (res,rej) => {
+      let startByte = 5 ;
+      let numberOfDataByte = data[1];
+      let endByte = startByte + numberOfDataByte;
+      let dataArr = data.slice(startByte,endByte);
+      let isShiftOut = dataArr[dataArr.length-1] != 13
+      console.log("data array: "+dataArr);
+      console.log("isShitout: "+isShiftOut);
+      if (isShiftOut){
+        this.stream_input += this.translate(dataArr);
       }else{
-        this.stream_input+= this.translate(dataArr);
-        let data = this.stream_input ;
-        this.stream_input = null;
-        return data;
+        // return this.translate(dataArr);
+
+        if (this.stream_input==""){
+          res(this.translate(dataArr));
+        }else{
+          this.stream_input+= this.translate(dataArr);
+          let data = this.stream_input ;
+          this.stream_input = "";
+          res(data);
+        }
+        
       }
-      
-    }
+    })
+    
     
   }
 
@@ -156,6 +160,7 @@ export class HomePage {
     }
     return string;
   }
+
   dev(){
     this.postData('{"mKey":"-KpOuhweuWiM_1ti3K-Z","customerName":"Chodanun Srinil","isMobile":"true","other":"test"}');
   }
