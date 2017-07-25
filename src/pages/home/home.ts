@@ -25,16 +25,9 @@ import { Config } from '../../shared/config'
 })
 export class HomePage {
   streamInput: string = "";
-  body: any = {
-    "services" : [],
-    "parameters" : {}
-  }
-  
-  proxyEventBody: any = {
-    eventName: "FLOWTOCOL.VISIT_CREATE",
-    status: "LISTENING_DATA",
-  }
-
+  body: any = {"services" : [], "parameters" : {}}
+  proxyEventBody: any = {  eventName: "FLOWTOCOL.VISIT_CREATE", status: "LISTENING_DATA"}
+  isToggleSettng: boolean = true;
   mKey: any;
   barcodeInputModel: InputModel;
   requiredFields: RequiredFieldModel[]= [];
@@ -56,12 +49,16 @@ export class HomePage {
       entId: new FormControl("2"),
       serId: new FormControl(14),
     });
-    this.init();
+    // this.init();
     // this.dev();
   }
   deleteField(index){
     this.requiredFields.splice(index,1);
     console.log(this.requiredFields)
+  }
+
+  toggleSetting(){
+    this.isToggleSettng = !this.isToggleSettng;
   }
 
   createAlert(msg,func){

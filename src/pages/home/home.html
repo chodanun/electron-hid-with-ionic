@@ -4,7 +4,7 @@
       Hello BarcodeReader !!
     </ion-title>
      <ion-buttons end>
-      <button ion-button icon-only color="royal">
+      <button ion-button icon-only color="royal" (click)="toggleSetting()">
         <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
@@ -12,16 +12,8 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="container">
-  <div class="row">
-    <div class="col-md-8">test</div>
-    <div class="col-md-4">test</div>
-    
-  </div>
   
-</div>
-  
-  <div class="config">
+  <div class="config" *ngIf="isToggleSettng">
     <form [formGroup]="configFields" (ngSubmit)="submitConfigForm(configFields)">
       <ion-list>    
         <ion-item class="section">
@@ -45,7 +37,7 @@
           <ion-input placeholder="Input" formControlName="serId"></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button class="button" full type="submit">UPDATE</button>
+      <button ion-button class="button" full type="submit" color="warning">UPDATE</button>
     </form>
   </div>
 
