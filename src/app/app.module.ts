@@ -7,25 +7,32 @@ import { RestService } from '../shared/rest.service';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { SettingPage } from '../pages/setting/setting';
 
 // HTTP
 import { HttpModule }    from '@angular/http';
+
+// ReactiveFormModule
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingPage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+    ReactiveFormsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingPage,
   ],
   providers: [
     StatusBar,

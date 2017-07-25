@@ -12,6 +12,8 @@ declare var HID: any;
 import { InputModel } from '../../shared/model/inputModel';
 import { RequiredFieldModel } from '../../shared/model/requiredFieldModel';
 
+// ReactiveForm
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'page-home',
@@ -23,6 +25,7 @@ export class HomePage {
   orgId: string;
   entId: string;
   requiredFields: RequiredFieldModel;
+  orgDetails: FormGroup;
 
   url: string = "http://192.168.1.92:8080/rest/entrypoint/branches/35/entryPoints/2/visits/";
   proxyEventUrl: string= "http://192.168.1.202:8080/ciix-fusion/rest/proxy/events/";
@@ -40,6 +43,11 @@ export class HomePage {
   ticketId: string ;
 
   constructor(public navCtrl: NavController, private rest: RestService) {
+    this.orgDetails = new FormGroup({
+      orgId: new FormControl('35'),
+      entId: new FormControl('2'),
+
+    })
     // this.init();
     // this.dev();
   }
