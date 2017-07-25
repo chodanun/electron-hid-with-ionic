@@ -1,12 +1,49 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      hello header
+      Hello BarcodeReader !!
     </ion-title>
+     <ion-buttons end>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-list>    
+    
+    <ion-item>
+      <ion-label color="primary" stacked>Organization Id</ion-label>
+      <ion-input placeholder="Input">{{orgId}}</ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label color="primary" stacked>Entrypoint Id</ion-label>
+      <ion-input placeholder="Input">{{entId}}</ion-input>
+    </ion-item>
+  </ion-list>
+  <div class="required-fields">
+    <span class="label">Add Required Fields</span>
+    <div class="input-field">
+        <div class="name">
+          <ion-input placeholder="Name" ></ion-input>
+        </div>
+        <div class="value">
+          <ion-input placeholder="Value"></ion-input>
+        </div>
+    </div> 
+    <button ion-button color="secondary">ADD</button>
+  </div>
+  <div class="list-fields" *ngIf="requiredFields">
+    <ul>
+      <li>
+        <p></p>
+      </li>
+    </ul>
+  </div>
 
+    
 </ion-content>
 

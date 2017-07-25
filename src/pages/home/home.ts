@@ -3,13 +3,14 @@ import { NavController } from 'ionic-angular';
 
 
 // HTTP
-import { RestService } from '../../shared/rest.service'
+import { RestService } from '../../shared/rest.service';
 
 // BARCODE READER
 declare var HID: any;
 
 // Model
-import { InputModel } from '../../shared/model/inputModel'
+import { InputModel } from '../../shared/model/inputModel';
+import { RequiredFieldModel } from '../../shared/model/requiredFieldModel';
 
 
 @Component({
@@ -18,20 +19,17 @@ import { InputModel } from '../../shared/model/inputModel'
 })
 export class HomePage {
   mKey: any;
-  test: any = "hello";
   barcodeInputModel: InputModel;
-  // url: string = "/rest/entrypoint/branches/35/entryPoints/2/visits/";
+  orgId: string;
+  entId: string;
+  requiredFields: RequiredFieldModel;
+
   url: string = "http://192.168.1.92:8080/rest/entrypoint/branches/35/entryPoints/2/visits/";
   proxyEventUrl: string= "http://192.168.1.202:8080/ciix-fusion/rest/proxy/events/";
   stream_input: string = "";
   body: any = {
     "services" : [14],
-    "parameters" : {
-      // "customerName":"",
-      // "isMobile" : "",
-      // "public_key":"sdsdsds",
-      // "mKey": "",
-    }
+    "parameters" : {}
   }
 
   proxyEventBody: any = {
@@ -42,16 +40,16 @@ export class HomePage {
   ticketId: string ;
 
   constructor(public navCtrl: NavController, private rest: RestService) {
-    this.init();
+    // this.init();
     // this.dev();
   }
   
 
   init(){
-    this.barcode_process();
+    this.barcodeProcess();
   }
 
-  barcode_process(){
+  barcodeProcess(){
     let barcode_reader = this.getDevice();
     this.getData(barcode_reader);
   }

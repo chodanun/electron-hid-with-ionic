@@ -1,3 +1,31 @@
 page-home {
+    .required-fields {
+        padding: inherit;
+        font-size: large;
+
+    }
+    .input-field {
+        width: 90%;
+        float: left;
+        
+    }
+    .input-field .label { 
+        font-size: x-large;
+        color: chocolate;
+    }
+    .input-field .name {
+        width: 70%;
+        float: left;
+    }
+    .input-field .value {
+        width: 30%;
+        float: left;
+    }
+    .button {
+        // background-color: red;
+        width: 10%;
+        float: left;
+        margin: 0px;
+    }
 
 }
