@@ -12,38 +12,53 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="orgDetails">
-    <ion-list>    
-      <ion-item>
-        <ion-label color="primary" stacked>Organization Id</ion-label>
-        <ion-input placeholder="Input" formControlName="orgId"></ion-input>
-      </ion-item>
-      
-      <ion-item>
-        <ion-label color="primary" stacked>Entrypoint Id</ion-label>
-        <ion-input placeholder="Input" formControlName="entId"></ion-input>
-      </ion-item>
-    </ion-list>
+
+  <div class="config">
+    <form [formGroup]="configFields" (ngSubmit)="submitConfigForm(configFields)">
+      <ion-list>    
+        <ion-item class="section">
+          <ion-label color="primary" stacked>Orchestra Ip</ion-label>
+          <ion-input placeholder="Input" formControlName="orcIp"></ion-input>
+        </ion-item>
+        <ion-item class="section">
+          <ion-label color="primary" stacked>Proxy Ip</ion-label>
+          <ion-input placeholder="Input" formControlName="proIp"></ion-input>
+        </ion-item>
+        <ion-item class="section">
+          <ion-label color="primary" stacked>Organzation Id</ion-label>
+          <ion-input placeholder="Input" formControlName="orgId"></ion-input>
+        </ion-item>
+        <ion-item class="section">
+          <ion-label color="primary" stacked>Entrypoint Id</ion-label>
+          <ion-input placeholder="Input" formControlName="entId"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button class="button" full type="submit">UPDATE</button>
+    </form>
+  </div>
+
+  
+  <form [formGroup]="field" (ngSubmit)="submitRequiredForm()" >
     <div class="required-fields">
       <span class="label">Add Required Fields</span>
       <div class="input-field">
           <div class="name">
-            <ion-input placeholder="Name" ></ion-input>
+            <ion-input placeholder="Name" formControlName="name"></ion-input>
           </div>
           <div class="value">
-            <ion-input placeholder="Value"></ion-input>
+            <ion-input placeholder="Value" formControlName="value"></ion-input>
           </div>
       </div> 
-      <button ion-button >ADD</button>
+      <button ion-button type="submit">ADD</button>
     </div>
   </form>
-
-  <div class="list-fields" *ngIf="requiredFields">
-    <ul>
-      <li>
-        <p></p>
-      </li>
-    </ul>
+  
+  <div class="list-fields" *ngIf="requiredFields.length!=0">
+    <ion-list no-lines>
+      <button ion-item *ngFor="let item of requiredFields">
+        Name: {{item.name}}, Value: {{item.value}}
+      </button> 
+    </ion-list>
   </div>
 
     

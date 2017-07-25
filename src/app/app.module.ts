@@ -15,6 +15,9 @@ import { HttpModule }    from '@angular/http';
 // ReactiveFormModule
 import { ReactiveFormsModule } from '@angular/forms';
 
+// Provider
+import { Config } from '../shared/config';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestService,
+    Config,
   ]
 })
 export class AppModule {}

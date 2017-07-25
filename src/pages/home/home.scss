@@ -1,7 +1,27 @@
 page-home {
+    .config {
+        text-align: center;
+    }
+
+    .config .button {
+        position: relative;
+        clear: both;
+        left: 40%;
+        width: 20%;
+        margin: 1%;
+    }
+
+    .section {
+        width: 22%;
+        float: left;
+        margin: 1%;
+    }
+    
     .required-fields {
+        margin: 20% 5% 5% 5%;
         padding: inherit;
         font-size: large;
+        clear: both;
 
     }
     .input-field {
@@ -26,6 +46,10 @@ page-home {
         width: 10%;
         float: left;
         margin: 0px;
+    }
+
+    .list-fields {
+        clear: both;
     }
 
 }
