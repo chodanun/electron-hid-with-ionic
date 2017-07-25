@@ -12,7 +12,15 @@
 </ion-header>
 
 <ion-content padding>
-
+  <div class="container">
+  <div class="row">
+    <div class="col-md-8">test</div>
+    <div class="col-md-4">test</div>
+    
+  </div>
+  
+</div>
+  
   <div class="config">
     <form [formGroup]="configFields" (ngSubmit)="submitConfigForm(configFields)">
       <ion-list>    
@@ -54,10 +62,16 @@
   </form>
   
   <div class="list-fields" *ngIf="requiredFields.length!=0">
-    <ion-list no-lines>
-      <button ion-item *ngFor="let item of requiredFields">
-        Name: {{item.name}}, Value: {{item.value}}
-      </button> 
+    <ion-list>
+      <ul>
+        <ion-item *ngFor="let item of requiredFields; let i = index" >
+          <li class="list-shown"> Name: {{item.name}}, Value: {{item.value}} 
+            <button ion-button color="light" (click)="deleteField(i)">
+              <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </li>
+        </ion-item> 
+      </ul>
     </ion-list>
   </div>
 

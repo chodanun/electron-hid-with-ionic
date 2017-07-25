@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 
-
 // HTTP
 import { RestService } from '../../shared/rest.service';
 
@@ -18,6 +17,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 // config
 import { Config } from '../../shared/config'
+
+// Boostrap
+import 'bootstrap';
 
 @Component({
   selector: 'page-home',
@@ -57,6 +59,11 @@ export class HomePage {
     // this.init();
     // this.dev();
   }
+  deleteField(index){
+    this.requiredFields.splice(index,1);
+    console.log(this.requiredFields)
+  }
+
   createAlert(msg,func){
     let alert = this.alert.create({
       title: 'System Information',

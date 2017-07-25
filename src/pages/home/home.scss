@@ -50,6 +50,15 @@ page-home {
 
     .list-fields {
         clear: both;
+        width: 100%;
+    }
+
+    .list-shown .button{
+        clear: both;
+        // float: left;
+        // width: 70%;
+        // margin-right: 10%;
+        
     }
 
 }
