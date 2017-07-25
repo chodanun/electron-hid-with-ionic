@@ -15,9 +15,11 @@ import { ConfigFieldModel } from '../../shared/model/configFieldModel';
 // ReactiveForm
 import { FormControl, FormGroup } from '@angular/forms';
 
-// config
-import { Config } from '../../shared/config'
+// Config
+import { Config } from '../../shared/config';
 
+// Db provider
+import { DataFbProvider } from '../../shared/dataService/data-fb/data-fb';
 
 @Component({
   selector: 'page-home',
@@ -36,8 +38,8 @@ export class HomePage {
   orchUrl: string;
   proxyEventUrl: string;
   ticketId: string ;
-
-  constructor(public navCtrl: NavController, private rest: RestService, private config: Config, private alert: AlertController) {
+  statusButtonPublish: string = "PUBLISH";
+  constructor(public navCtrl: NavController, private rest: RestService, private config: Config, private alert: AlertController,private db: DataFbProvider){
     this.field = new FormGroup({
       name: new FormControl(),
       value: new FormControl(),
@@ -94,6 +96,14 @@ export class HomePage {
   init(){
     this.setEnv();
     this.barcodeProcess();
+  }
+
+  publishRequiredFields(){
+    this.db.addRequiredFields(this.configFields.value.orgId,this.requiredFields).then( ()=> {
+      this.createAlert("published data already",()=>{
+        
+      })
+    })
   }
   
   setEnv(){

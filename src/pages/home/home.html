@@ -53,7 +53,7 @@
             <ion-input placeholder="Value" formControlName="value"></ion-input>
           </div>
       </div> 
-      <button ion-button type="submit">ADD</button>
+        <button ion-button type="submit">ADD</button>
     </div>
   </form>
   
@@ -69,6 +69,7 @@
         </ion-item> 
       </ul>
     </ion-list>
+    <button ion-button color="secondary" (click)="publishRequiredFields()">{{statusButtonPublish}}</button> 
   </div>
 
     

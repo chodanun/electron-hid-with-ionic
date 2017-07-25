@@ -17,7 +17,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // Provider
 import { Config } from '../shared/config';
+import { DataFbProvider } from '../shared/dataService/data-fb/data-fb';
 
+// Firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database'
+
+const firebaseConfig: any = {
+    apiKey: "AIzaSyCHs5JeIxYSc1GWnaZyoqoG1uvckyF5jT4",
+    authDomain: "ciix-fusion-59c3a.firebaseapp.com",
+    databaseURL: "https://ciix-fusion-59c3a.firebaseio.com",
+    projectId: "ciix-fusion-59c3a",
+    storageBucket: "ciix-fusion-59c3a.appspot.com",
+    messagingSenderId: "958932957275"
+};
 
 @NgModule({
   declarations: [
@@ -30,6 +43,7 @@ import { Config } from '../shared/config';
     IonicModule.forRoot(MyApp),
     HttpModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -43,6 +57,8 @@ import { Config } from '../shared/config';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestService,
     Config,
+    DataFbProvider,
+    AngularFireDatabase,
   ]
 })
 export class AppModule {}
