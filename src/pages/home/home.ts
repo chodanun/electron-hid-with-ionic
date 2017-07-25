@@ -18,8 +18,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 // config
 import { Config } from '../../shared/config'
 
-// Boostrap
-import 'bootstrap';
 
 @Component({
   selector: 'page-home',
@@ -28,9 +26,10 @@ import 'bootstrap';
 export class HomePage {
   streamInput: string = "";
   body: any = {
-    "services" : [14],
+    "services" : [],
     "parameters" : {}
   }
+  
   proxyEventBody: any = {
     eventName: "FLOWTOCOL.VISIT_CREATE",
     status: "LISTENING_DATA",
@@ -55,8 +54,9 @@ export class HomePage {
       proIp: new FormControl("192.168.1.202:8080"),
       orgId: new FormControl("35"),
       entId: new FormControl("2"),
+      serId: new FormControl(14),
     });
-    // this.init();
+    this.init();
     // this.dev();
   }
   deleteField(index){
@@ -105,6 +105,8 @@ export class HomePage {
     this.config.setProxyEventUrl();
     this.orchUrl = this.config.getOrchUrl();
     this.proxyEventUrl = this.config.getProxyEventUrl();
+    this.body.services = ([this.configFields.value.serId]);
+    
   }
 
   barcodeProcess(){
