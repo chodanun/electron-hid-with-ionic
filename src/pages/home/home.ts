@@ -144,7 +144,7 @@ export class HomePage {
 
   postToR6(){
     
-    Object.assign(this.body.parameters,{instructions:this.inst.getInstruction(this.configFields.value.serId)[0].serviceInst.toString()});
+    Object.assign(this.body.parameters,{instruction:this.inst.getInstruction(this.configFields.value.serId)[0].serviceInst.toString()});
     console.log("body: ",this.body);
     this.rest.setBasicAuthen(btoa("superadmin:ulan"));
     this.rest.post(this.orchUrl,this.body)
