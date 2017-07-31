@@ -49,7 +49,7 @@ export class HomePage {
       entId: new FormControl("2"),
       serId: new FormControl(14),
     });
-    // this.init();
+    this.init();
     // this.dev();
   }
   deleteField(index){
