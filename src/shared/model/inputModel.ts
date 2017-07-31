@@ -1,4 +1,4 @@
-export class InputModel {
+export interface InputModel {
     isMobile: any;
     mKey: string;
     customerName: string;

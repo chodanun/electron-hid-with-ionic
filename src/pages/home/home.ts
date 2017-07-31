@@ -18,6 +18,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 // config
 import { Config } from '../../shared/config'
 
+// Service
+import {InstructionProvider} from '../../shared/service/instruction'
+
 
 @Component({
   selector: 'page-home',
@@ -37,14 +40,14 @@ export class HomePage {
   proxyEventUrl: string;
   ticketId: string ;
 
-  constructor(public navCtrl: NavController, private rest: RestService, private config: Config, private alert: AlertController) {
+  constructor(private inst: InstructionProvider,public navCtrl: NavController, private rest: RestService, private config: Config, private alert: AlertController) {
     this.field = new FormGroup({
       name: new FormControl(),
       value: new FormControl(),
     })
     this.configFields = new FormGroup({
       orcIp: new FormControl("192.168.1.92:8080"),
-      proIp: new FormControl("192.168.1.202:8080"),
+      proIp: new FormControl("192.168.1.205:8080"),
       orgId: new FormControl("35"),
       entId: new FormControl("2"),
       serId: new FormControl(14),
@@ -140,7 +143,9 @@ export class HomePage {
   }
 
   postToR6(){
-    console.log(this.body)
+    
+    Object.assign(this.body.parameters,{instructions:this.inst.getInstruction(this.configFields.value.serId)[0].serviceInst.toString()});
+    console.log("body: ",this.body);
     this.rest.setBasicAuthen(btoa("superadmin:ulan"));
     this.rest.post(this.orchUrl,this.body)
       .then( (data) => {
@@ -217,7 +222,8 @@ export class HomePage {
   }
 
   dev(){
-    this.postData('{"mKey":"-KpOuhweuWiM_1ti3K-Z","customerName":"Chodanun Srinil","isMobile":"true","other":"test"}');
+    console.log(this.inst.getInstruction(2)[0].serviceInst);
+    // this.postData('{"mKey":"-KpOuhweuWiM_1ti3K-Z","customerName":"Chodanun Srinil","isMobile":"true","other":"test"}');
   }
 
 }

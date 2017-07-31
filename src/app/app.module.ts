@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // Provider
 import { Config } from '../shared/config';
+import { InstructionProvider } from '../shared/service/instruction';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { Config } from '../shared/config';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestService,
     Config,
+    InstructionProvider,
   ]
 })
 export class AppModule {}
