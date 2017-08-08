@@ -46,11 +46,15 @@ export class HomePage {
       value: new FormControl(),
     })
     this.configFields = new FormGroup({
-      orcIp: new FormControl("192.168.1.92:8080"),
-      proIp: new FormControl("192.168.1.205:8080"),
-      orgId: new FormControl("35"),
-      entId: new FormControl("2"),
-      serId: new FormControl(14),
+      orcIp: new FormControl("210.1.19.131:8080"),
+      // orcIp: new FormControl("192.168.1.92:8080"),
+      proIp: new FormControl("210.1.19.131:8090"),
+      // proIp: new FormControl("192.168.1.205:8080"),
+      // orgId: new FormControl("35"),
+      orgId: new FormControl("7"),
+      entId: new FormControl("3"),
+      // entId: new FormControl("2"),
+      serId: new FormControl(1),
     });
     this.init();
     // this.dev();
@@ -129,6 +133,7 @@ export class HomePage {
       }
       
     } catch (error) {
+      console.log(error);
       console.log("it's not a mobile device or wrong format in json");
     }
   }
@@ -222,7 +227,13 @@ export class HomePage {
   }
 
   dev(){
-    console.log(this.inst.getInstruction(2)[0].serviceInst);
+    this.rest.clearBasicAuthen();
+    this.rest.setBasicAuthen(btoa("superadmin:ulan"));
+    this.rest.get("rest/entrypoint/customers;cardNumber=1909800835997")
+      .then( (data) => {
+        console.log(data[0].cardNumber);
+      });
+    // console.log(this.inst.getInstruction(2)[0].serviceInst);
     // this.postData('{"mKey":"-KpOuhweuWiM_1ti3K-Z","customerName":"Chodanun Srinil","isMobile":"true","other":"test"}');
   }
 
